@@ -48,6 +48,8 @@ python3 stepper_web.py
 
 Open http://localhost:8000
 
+![Web UI screenshot](screenshot.png)
+
 Features:
 - Sliders for X, Y, and Both step amounts (1-1000)
 - Up/Down buttons per motor and for both
