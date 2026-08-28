@@ -1,10 +1,16 @@
 #include <AFMotor.h>
+#include <Servo.h>
 
 const int STEPS_PER_REV = 200; // typical for DVD steppers; adjust if yours differs
 
 // Stepper 1 -> M1-M2 terminals (X), Stepper 2 -> M3-M4 terminals (Y)
 AF_Stepper stepperX(STEPS_PER_REV, 1);
 AF_Stepper stepperY(STEPS_PER_REV, 2);
+
+// Pen servo on the L293D shield's onboard servo header
+// SERVO 1 header -> D9, SERVO 2 header -> D10 (free pins, not used by AFMotor PWM)
+int penServoPin = 10; // SERVO_1 header = D10 on this HW-130 clone
+Servo penServo;
 
 int currentSpeed = 60; // RPM - keep low when running from USB 5V
 
@@ -15,6 +21,8 @@ void setup() {
   Serial.begin(9600);
   stepperX.setSpeed(currentSpeed);
   stepperY.setSpeed(currentSpeed);
+  penServo.attach(penServoPin);
+  penServo.write(90); // pen up position at startup
   printHelp();
 }
 
@@ -45,6 +53,12 @@ void loop() {
         stepperY.setSpeed(currentSpeed);
         Serial.print(F("Speed set to "));
         Serial.println(currentSpeed);
+        break;
+      case 'p':
+        value = constrain(value, 0, 180);
+        penServo.write(value);
+        Serial.print(F("Pen servo set to "));
+        Serial.println(value);
         break;
       case 'h':
       case '?':
@@ -110,5 +124,6 @@ void printHelp() {
   Serial.println(F("  b <steps>   move both motors together"));
   Serial.println(F("  r           rest - return both motors to 0 position"));
   Serial.println(F("  s <rpm>     set speed (e.g. 30-150)"));
+  Serial.println(F("  p <angle>   set pen servo angle 0-180 (90=up, 45=down)"));
   Serial.println(F("  h           help"));
 }
