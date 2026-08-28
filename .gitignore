@@ -5,6 +5,11 @@ __pycache__/
 .venv/
 venv/
 
+# Environment / secrets — never commit
+.env
+.env.*
+!.env.example
+
 # Trained RL models (large binaries)
 *.zip
 *.gz
