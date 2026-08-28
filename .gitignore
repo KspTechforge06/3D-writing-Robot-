@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Trained RL models (large binaries)
+*.zip
+*.gz
+
+# Runtime weight/config artifacts
+writing_robot_rl/hw_weights.json

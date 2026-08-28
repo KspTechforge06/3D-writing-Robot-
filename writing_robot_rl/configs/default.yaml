@@ -1,0 +1,56 @@
+# Writing Robot RL Configuration
+
+# Environment settings
+env:
+  x_range: [0.0, 100.0]
+  y_range: [0.0, 100.0]
+  max_step_mm: 2.0
+  max_velocity_mm: 10.0
+  max_episode_steps: 500
+  trajectory_density: 1.0
+  pen_servo_channel: 1
+  pen_up_angle: 90
+  pen_down_angle: 45
+
+# PPO hyperparameters
+ppo:
+  policy: "MlpPolicy"
+  learning_rate: 3e-4
+  n_steps: 2048
+  batch_size: 64
+  n_epochs: 10
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_range: 0.2
+  ent_coef: 0.01
+  vf_coef: 0.5
+  max_grad_norm: 0.5
+  verbose: 1
+
+# Reward weights
+reward:
+  path: 10.0
+  progress: 100.0
+  smooth: 0.1
+  pen: 1.0
+  completion: 50.0
+
+# Training settings
+train:
+  total_timesteps: 200000
+  normalize: true
+  checkpoint_freq: 10000
+  eval_freq: 5000
+  n_eval_episodes: 5
+
+# Curriculum learning
+curriculum:
+  enabled: true
+  type: "cosine"  # linear, cosine, step
+  total_episodes: 1000
+
+# Hardware
+hardware:
+  steps_per_mm: 80.0
+  physical_travel_mm: [55.0, 52.0]   # measured sled travel (X=5.5cm, Y=5.2cm)
+  safety_margin_mm: 4.0              # 4mm margin at each end -> max X=51mm, Y=48mm

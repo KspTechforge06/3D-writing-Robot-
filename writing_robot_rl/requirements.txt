@@ -1,0 +1,27 @@
+# Writing Robot RL Dependencies
+
+# Core RL
+gymnasium>=0.29.0
+stable-baselines3>=2.0.0
+torch>=2.0.0
+numpy>=1.24.0
+
+# Serial communication
+pyserial>=3.5
+
+# Visualization
+pygame>=2.5.0
+
+# Trajectory processing
+svgpathtools>=1.6.0
+scipy>=1.11.0
+
+# Config
+pyyaml>=6.0
+
+# Optional: for text-to-trajectory
+# freetype-py>=2.3.0
+
+# Optional: for 3D visualization
+# meshcat>=0.0.23
+# ipywidgets>=8.0
